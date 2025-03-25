@@ -12,7 +12,7 @@ class OrderController extends Controller
     public function createOrder(Request $request)
     {
         $order = new Order();
-        $order->user_id = '2';
+        $order->user_id = '1';
 
         $drinks = $request->input('drinks');
 
@@ -33,8 +33,14 @@ class OrderController extends Controller
     }
 
     //delete an order
-    public function deleteOrder()
+    public function deleteOrder(Request $request)
     {
-        //
+        $orderId = $request->input('id');
+
+        $order = Order::find($orderId);
+        //detach the drinks to delete the row in the pivot table drink_order
+        $order->drinks()->detach();
+
+        $order->delete();
     }
 }
