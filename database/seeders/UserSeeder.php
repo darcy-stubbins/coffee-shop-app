@@ -24,5 +24,11 @@ class UserSeeder extends Seeder
             'email' => 'chris@mail.com',
             'password' => 'password'
         ])->save();
+
+        new User([
+            'name' => 'Steve',
+            'email' => 'steve@mail.com',
+            'password' => 'password'
+        ])->save();
     }
 }

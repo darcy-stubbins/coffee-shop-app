@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Drink;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -12,7 +13,9 @@ class OrderController extends Controller
     public function createOrder(Request $request)
     {
         $order = new Order();
-        $order->user_id = '1';
+
+        $userId = $request->input('id');
+        $order->user_id = $userId;
 
         $drinks = $request->input('drinks');
 
