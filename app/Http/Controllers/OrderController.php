@@ -27,12 +27,22 @@ class OrderController extends Controller
         }
     }
 
-    //get an order by its id with its user, drinks
+    //get an order by its id with its user, drinks and the total sum of the drinks prices
     public function getOrder()
     {
-        $order = Order::where('id', '1')->with('user', 'drinks', 'drinks.drinkType')->get();
+        $order = Order::where('id', '1')->with('user', 'drinks', 'drinks.drinkType')->first();
 
-        dd($order->toArray());
+        //getting total sum of drink prices 
+        $totalPrice = 0;
+
+        foreach ($order->drinks as $drink) {
+            $totalPrice = $totalPrice + $drink->price;
+        }
+
+        //format the number into currency
+        $orderTotal = '£' . number_format($totalPrice, 2);
+
+        dd($order->toArray(), $orderTotal);
     }
 
     //delete an order
