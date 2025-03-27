@@ -27,10 +27,10 @@ class OrderController extends Controller
         }
     }
 
-    //get an order by its id with its user, drinks and the total sum of the drinks prices
+    //get an order by its id with its user, drinks, drink types, and the total sum of the drinks prices
     public function getOrder()
     {
-        $order = Order::where('id', '1')->with('user', 'drinks', 'drinks.drinkType')->first();
+        $order = Order::where('id', '7')->with('user', 'drinks', 'drinks.drinkType')->first();
 
         //getting total sum of drink prices 
         $totalPrice = 0;

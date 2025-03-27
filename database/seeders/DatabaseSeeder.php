@@ -24,5 +24,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             DrinkSeeder::class,
         ]);
+
+        $this->call([
+            OrderSeeder::class,
+        ]);
     }
 }
