@@ -32,13 +32,17 @@ class OrderController extends Controller
     {
         $orderId = 1;
 
-        $order = Order::where('id', $orderId)->with('user', 'drinks', 'drinks.drinkType')->first();
+        $order = Order::where('id', $orderId)->with('user', 'orderLines.drink', 'orderLines.drink.drinkType', 'orderLines.syrup')->first();
 
-        //getting total sum of drink prices 
+        //getting total sum of drink prices with the prices of the syrups
         $totalPrice = 0;
 
         foreach ($order->drinks as $drink) {
             $totalPrice = $totalPrice + $drink->price;
+        }
+
+        foreach ($order->syrups as $syrup) {
+            $totalPrice = $totalPrice + $syrup->price;
         }
 
         //format the number into currency

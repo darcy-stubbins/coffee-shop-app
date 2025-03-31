@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Drink extends Model
+class Syrup extends Model
 {
-    public function drinkType()
+    public function drinks()
     {
-        return $this->belongsTo(DrinkType::class);
+        return $this->belongsToMany(Drink::class, 'order_lines');
     }
 
     public function orders()

@@ -26,6 +26,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
+            SyrupSeeder::class,
+        ]);
+
+        $this->call([
             OrderSeeder::class,
         ]);
     }

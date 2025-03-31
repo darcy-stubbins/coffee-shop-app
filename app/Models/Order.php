@@ -13,6 +13,16 @@ class Order extends Model
 
     public function drinks()
     {
-        return $this->belongsToMany(Drink::class);
+        return $this->belongsToMany(Drink::class, 'order_lines');
+    }
+
+    public function syrups()
+    {
+        return $this->belongsToMany(Syrup::class, 'order_lines');
+    }
+
+    public function orderLines()
+    {
+        return $this->hasMany(OrderLine::class);
     }
 }
