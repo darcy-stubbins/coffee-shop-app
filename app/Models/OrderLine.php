@@ -20,4 +20,9 @@ class OrderLine extends Model
     {
         return $this->belongsTo(Syrup::class);
     }
+
+    public function extra()
+    {
+        return $this->belongsTo(Syrup::class);
+    }
 }

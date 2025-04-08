@@ -54,5 +54,17 @@ class DrinkSeeder extends Seeder
             'name' => 'Chai Latte',
             'price' => '2.50',
         ])->save();
+
+        new Drink([
+            'drink_type_id' => '4',
+            'name' => 'Hot Chocolate',
+            'price' => '2.50',
+        ])->save();
+
+        new Drink([
+            'drink_type_id' => '4',
+            'name' => 'White Hot Chocolate',
+            'price' => '2.50',
+        ])->save();
     }
 }

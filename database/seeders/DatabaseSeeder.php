@@ -14,22 +14,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            DrinkTypeSeeder::class,
-        ]);
-
-        $this->call([
             UserSeeder::class,
-        ]);
-
-        $this->call([
+            DrinkTypeSeeder::class,
             DrinkSeeder::class,
-        ]);
-
-        $this->call([
             SyrupSeeder::class,
-        ]);
-
-        $this->call([
+            ExtraSeeder::class,
             OrderSeeder::class,
         ]);
     }

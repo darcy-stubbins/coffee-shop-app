@@ -21,6 +21,11 @@ class Order extends Model
         return $this->belongsToMany(Syrup::class, 'order_lines');
     }
 
+    public function extras()
+    {
+        return $this->belongsToMany(Extra::class, 'order_lines');
+    }
+
     public function orderLines()
     {
         return $this->hasMany(OrderLine::class);

@@ -27,25 +27,32 @@ class OrderController extends Controller
         }
     }
 
-    //get an order by its id with its user, drinks, drink types, and the total sum of the drinks prices
+    //get an order by its id with its user, drinks, drink types, syrups and extras, and the total sum of the drinks prices
     public function getOrder()
     {
-        $orderId = 1;
+        $orderId = 3;
 
-        $order = Order::where('id', $orderId)->with('user', 'orderLines.drink', 'orderLines.drink.drinkType', 'orderLines.syrup')->first();
+        $order = Order::where('id', $orderId)->with('user', 'orderLines.drink', 'orderLines.drink.drinkType', 'orderLines.syrup', 'orderLines.extra')->first();
 
         //getting total sum of drink prices with the prices of the syrups
         $totalPrice = 0;
 
+        //calculate drink price
         foreach ($order->drinks as $drink) {
             $totalPrice = $totalPrice + $drink->price;
         }
 
+        //calculate syrup price 
         foreach ($order->syrups as $syrup) {
             $totalPrice = $totalPrice + $syrup->price;
         }
 
-        //format the number into currency
+        //calculate extra price 
+        foreach ($order->extras as $extra) {
+            $totalPrice = $totalPrice + $extra->price;
+        }
+
+        //format the price number into currency
         $orderTotal = '£' . number_format($totalPrice, 2);
 
         dd($order->toArray(), $orderTotal);
