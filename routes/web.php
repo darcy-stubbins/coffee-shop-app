@@ -22,4 +22,4 @@ Route::get('/get-drink-with-type', [DrinkController::class, 'getDrinkWithType'])
 Route::get('/get-user', [UserController::class, 'getUser']);
 
 //order controller 
-Route::get('/get-order', [OrderController::class, 'getOrder']);
+Route::get('/get-order/{id}', [OrderController::class, 'getOrder']);

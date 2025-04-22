@@ -38,11 +38,13 @@ class OrderController extends Controller
     }
 
     //get an order by its id with its user, drinks, drink types, syrups and extras, and the total sum of the drinks prices
-    public function getOrder()
+    public function getOrder($id)
     {
-        $orderId = 3;
+        $orderId = $id;
 
         $order = Order::where('id', $orderId)->with('user', 'orderLines.drink', 'orderLines.drink.drinkType', 'orderLines.syrup', 'orderLines.extra')->first();
+
+        dd($order);
 
         //getting total sum of drink prices with the prices of the syrups
         $totalPrice = 0;
@@ -71,7 +73,7 @@ class OrderController extends Controller
     //delete an order
     public function deleteOrder(Request $request)
     {
-        $orderId = $request->input('id');
+        $orderId = $request->input('order_id');
 
         $order = Order::find($orderId);
         //detach the drinks to delete the row in the pivot table drink_order
