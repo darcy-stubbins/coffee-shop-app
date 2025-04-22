@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Drink;
 use App\Models\Order;
+use App\Models\OrderLine;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,16 +15,25 @@ class OrderController extends Controller
     {
         $order = new Order();
 
-        $userId = $request->input('id');
+        $userId = $request->input('user_id');
         $order->user_id = $userId;
-
-        $drinks = $request->input('drinks');
 
         $order->save();
 
-        //attach the drinks to the order that was just made
-        foreach ($drinks as $drink) {
-            $order->drinks()->attach($drink);
+        $drinks = $request->input('drinks');
+        $syrups = $request->input('syrups');
+        $extras = $request->input('extras');
+
+        //create a new orderline for each drink on the order that was just made
+        foreach ($drinks as $index => $drink) {
+
+            $orderLine = new OrderLine();
+            $orderLine->drink_id = $drink;
+            $orderLine->order_id = $order->id;
+            $orderLine->syrup_id = $syrups[$index] ?? null;
+            $orderLine->extra_id = $extras[$index] ?? null;
+
+            $orderLine->save();
         }
     }
 
