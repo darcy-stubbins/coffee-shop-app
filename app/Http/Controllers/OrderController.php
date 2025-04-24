@@ -47,8 +47,6 @@ class OrderController extends Controller
 
         $order = Order::where('id', $orderId)->with('user', 'orderLines.drink', 'orderLines.drink.drinkType', 'orderLines.syrup', 'orderLines.extra')->first();
 
-        dd($order);
-
         //getting total sum of drink prices with the prices of the syrups
         $totalPrice = 0;
 
@@ -85,12 +83,13 @@ class OrderController extends Controller
         $order->delete();
     }
 
+    //create an order csv file 
     public function createOrderCsv()
     {
         //getting the data from the csv file 
         $data = OrderLine::get()->toArray();
 
-        $fileName = 'order.csv';
+        $fileName = 'orders.csv';
         $headers = Schema::getColumnListing('order_lines'); //get the headers from the db table orders 
 
         //calling the createcsvfile function from services

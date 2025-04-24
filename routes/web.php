@@ -24,4 +24,8 @@ Route::get('/get-user', [UserController::class, 'getUser']);
 //order controller 
 Route::get('/get-order/{id}', [OrderController::class, 'getOrder']);
 
-Route::get('/download-test', [OrderController::class, 'createOrderCsv']);
+//create and download the orders csv
+Route::get('/download-order', [OrderController::class, 'createOrderCsv']);
+
+//create and download the users csv
+Route::get('download-user', [UserController::class, 'createUserCsv']);
