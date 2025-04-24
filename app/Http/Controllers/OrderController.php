@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Drink;
 use App\Models\Order;
 use App\Models\OrderLine;
-use App\Models\User;
+use App\Services\CSVService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Schema;
 
 class OrderController extends Controller
 {
     //create an order
     public function createOrder(Request $request)
     {
+        $myArray = OrderLine::all()->toArray();
+
         $order = new Order();
 
         $userId = $request->input('user_id');
@@ -80,5 +83,20 @@ class OrderController extends Controller
         $order->drinks()->detach();
 
         $order->delete();
+    }
+
+    public function createOrderCsv()
+    {
+        //getting the data from the csv file 
+        $data = OrderLine::get()->toArray();
+
+        $fileName = 'order.csv';
+        $headers = Schema::getColumnListing('order_lines'); //get the headers from the db table orders 
+
+        //calling the createcsvfile function from services
+        CSVService::createCsvFile($fileName, $data, $headers);
+
+        //download the CSV file
+        return Response::download(public_path($fileName))->deleteFileAfterSend(true);
     }
 }

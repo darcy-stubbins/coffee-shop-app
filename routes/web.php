@@ -23,3 +23,5 @@ Route::get('/get-user', [UserController::class, 'getUser']);
 
 //order controller 
 Route::get('/get-order/{id}', [OrderController::class, 'getOrder']);
+
+Route::get('/download-test', [OrderController::class, 'createOrderCsv']);
