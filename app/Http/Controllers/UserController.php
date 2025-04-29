@@ -17,6 +17,10 @@ class UserController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = $request->input('password');
+        $user->street_address = $request->input('street_address');
+        $user->locality = $request->input('locality');
+        $user->region = $request->input('region');
+        $user->post_code = $request->input('post_code');
 
         $user->save();
     }
@@ -27,6 +31,34 @@ class UserController extends Controller
         $user = User::where('name', 'dee')->get();
 
         dd($user);
+    }
+
+    //edit a users details 
+    public function editUser(Request $request)
+    {
+        $userId = $request->input('user_id');
+        $user = User::find($userId);
+
+        $updatedName = $request->input('updated_name') ?? $user->name;
+        $updatedEmail = $request->input('updated_email') ?? $user->email;
+        $updatedPassword = $request->input('updated_password') ?? $user->password;
+        $updatedStreetAddress = $request->input('updated_street_address') ?? $user->street_address;
+        $updatedLocality = $request->input('updated_locality') ?? $user->locality;
+        $updatedRegion = $request->input('updated_region') ?? $user->region;
+        $updatedPostCode = $request->input('updated_post_code') ?? $user->post_code;
+
+
+        $user->update([
+            'name' => $updatedName,
+            'email' => $updatedEmail,
+            'password' => $updatedPassword,
+            'street_address' => $updatedStreetAddress,
+            'locality' => $updatedLocality,
+            'region' => $updatedRegion,
+            'post_code' => $updatedPostCode,
+        ]);
+
+        $user->save();
     }
 
     //delete a user

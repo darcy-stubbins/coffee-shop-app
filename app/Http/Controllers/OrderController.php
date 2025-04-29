@@ -71,6 +71,12 @@ class OrderController extends Controller
         dd($order->toArray(), $orderTotal);
     }
 
+    //edit an orders details 
+    public function editOrder()
+    {
+        //
+    }
+
     //delete an order
     public function deleteOrder(Request $request)
     {
